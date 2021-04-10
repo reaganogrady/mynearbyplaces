@@ -1,6 +1,7 @@
 import Navbar from 'react-bootstrap/Navbar';
 import './App.css';
 import Home from './home';
+import Login from './login';
 import { HashRouter, Switch, Route } from "react-router-dom";
 import { Container, Nav } from 'react-bootstrap';
 
@@ -10,6 +11,7 @@ function App() {
     <HashRouter>
       <Switch>
         <Route path ="/home" component= { Home } />
+        <Route path ="/login" component= { Login } />
       </Switch>
     </HashRouter>
 
