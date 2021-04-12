@@ -23,11 +23,20 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
-body {
-  background-color: lightcyan;
-}
+
 .App-link {
   color: #61dafb;
+}
+
+body {
+  padding-top: 100px;
+  background-color: grey;
+}
+
+.form {
+  border: 2px solid lightgrey;
+  border-radius: 25px;
+  padding: 40px;
 }
 
 @keyframes App-logo-spin {
