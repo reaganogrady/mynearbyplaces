@@ -4,6 +4,7 @@ import Home from './home';
 import Login from './login';
 import SignUp from './signup';
 import Review from './review';
+import AddPlace from './addplace';
 import { HashRouter, Switch, Route } from "react-router-dom";
 import { Container, Nav } from 'react-bootstrap';
 import logo from './images/logo.png';
@@ -18,12 +19,16 @@ function App() {
         <Route path ="/login" component= { Login } />
         <Route path ="/signup" component= { SignUp } />
         <Route path="/review" component={ Review } />
+        <Route path="/addplace" component= { AddPlace } />
       </Switch>
     </HashRouter>
 
     <Navbar fixed="top" expand="lg" bg="light" variant="light">
         <Navbar.Brand>  <a href="mynearbyplaces/"><img src={logo} alt="logo" height="50px"/></a></Navbar.Brand>
-        <Nav><Nav.Link href='#review'> Write a Review</Nav.Link></Nav>
+        <Nav>
+          <Nav.Link href='#review'> Write a Review</Nav.Link>
+          <Nav.Link href="#addplace">Add a Place</Nav.Link>
+        </Nav>
         <Nav className="ml-auto">
           {/* If logged in { show logout button}*/}
           <Nav.Link href="#login"> Login </Nav.Link>
