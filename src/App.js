@@ -5,17 +5,20 @@ import Login from './login';
 import SignUp from './signup';
 import Review from './review';
 import AddPlace from './addplace';
-import { HashRouter, Switch, Route } from "react-router-dom";
+import { HashRouter, Switch, Route, Redirect } from "react-router-dom";
 import { Container, Nav } from 'react-bootstrap';
 import logo from './images/logo.png';
 
-function App() {
 
+function App() {
   return (
     <Container>
     <HashRouter>
       <Switch>
-        <Route exact path ="/" component= { Home } />
+        <Route exact path ="/">
+          <Redirect to="/home" />
+        </Route>
+        <Route path ="/home" component= { Home } />
         <Route path ="/login" component= { Login } />
         <Route path ="/signup" component= { SignUp } />
         <Route path="/review" component={ Review } />
@@ -24,7 +27,7 @@ function App() {
     </HashRouter>
 
     <Navbar fixed="top" expand="lg" bg="light" variant="light">
-        <Navbar.Brand>  <a href="mynearbyplaces/"><img src={logo} alt="logo" height="50px"/></a></Navbar.Brand>
+        <Navbar.Brand><a href='#home'><img src={logo} alt="logo" height="50px"/></a></Navbar.Brand>
         <Nav>
           <Nav.Link href='#review'> Write a Review</Nav.Link>
           <Nav.Link href="#addplace">Add a Place</Nav.Link>
