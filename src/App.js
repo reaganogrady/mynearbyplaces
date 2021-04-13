@@ -3,11 +3,10 @@ import './App.css';
 import Home from './home';
 import Login from './login';
 import SignUp from './signup';
+import Review from './review';
 import { HashRouter, Switch, Route } from "react-router-dom";
 import { Container, Nav } from 'react-bootstrap';
 import logo from './images/logo.png';
-import {Button, Form} from 'react-bootstrap';
-import FormControl from 'react-bootstrap/FormControl';
 
 function App() {
 
@@ -18,6 +17,7 @@ function App() {
         <Route exact path ="/" component= { Home } />
         <Route path ="/login" component= { Login } />
         <Route path ="/signup" component= { SignUp } />
+        <Route path="/review" component={ Review } />
       </Switch>
     </HashRouter>
 

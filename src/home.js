@@ -5,7 +5,6 @@ import {Button, Form, Col} from 'react-bootstrap';
 
 
 function Home (){
-        console.log("Home");
         return(
          <Form>
              <Form.Row className="align-items-center">
@@ -20,6 +19,8 @@ function Home (){
             </Col>
             </Form.Row>
          </Form>
+
+         
         
         );
     

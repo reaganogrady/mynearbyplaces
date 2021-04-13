@@ -8,14 +8,14 @@ import { Container, Col, Row } from 'react-bootstrap';
 function SignUp() {
     const history = useHistory();
 
-    let onLoginSubmitted = () => {
-        history.push('/home');
+    let onSignupSubmitted = () => {
+        history.push('/');
     }
 
     return(
     <Container className="form">
         <h4> Create an Account</h4>
-        <Form className="login" onSubmit={onLoginSubmitted}>
+        <Form className="login" onSubmit={onSignupSubmitted}>
             <Row className="justify-content-md-center">
             <Col >
                 <Form.Group>

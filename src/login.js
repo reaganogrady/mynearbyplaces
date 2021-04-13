@@ -9,7 +9,7 @@ function Login() {
     const history = useHistory();
 
     let onLoginSubmitted = () => {
-        history.push('/home');
+        history.push('/');
     }
 
     return(
