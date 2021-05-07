@@ -15,13 +15,13 @@ let addPlace = (place) => {
     });
 }
 
-let searchPlace = (place, location) => {
-    return fetch(address + '/search/${place}/${location}')
+let searchPlace = (place, street, city, state, postalcode) => {
+    return fetch(address + `/search/${place}/${street}/${city}/${state}/${postalcode}`)
     .then(response => response.json());
 }
 
-let reviewPlace = (reivew, place) => {
-    return fetch(address + '/review/${place}', {
+let reviewPlace = (review, place) => {
+    return fetch(address + `/review/${place}`, {
         method: 'post',
         headers: {
             'Content-Type': 'application/json'
@@ -30,6 +30,11 @@ let reviewPlace = (reivew, place) => {
     });
 }
 
+// Might not use
+let login = (username, password) => {
+    return fetch(address + `/login/${username}/${password}`)
+    .then(response => response.json());
+}
 
 let api = {
     getPlaces: getPlaces,
