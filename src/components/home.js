@@ -1,12 +1,13 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import React from 'react';
-import './App.css';
 import {Button, Form, Col} from 'react-bootstrap';
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 function Home(props){
     const [place, setPlace] = useState("");
     const [location, setLoc] = useState("");
+    const history = useHistory();
 
     let searchPlace = () => {
         if (place.trim().length === 0 || location.trim().length === 0) {

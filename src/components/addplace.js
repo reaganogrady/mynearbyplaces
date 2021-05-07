@@ -1,6 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import React from 'react';
-import './App.css';
 import {Button, Form} from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { Container, Col, Row } from 'react-bootstrap';
@@ -25,7 +24,7 @@ function AddPlace() {
                     <Col xs={4} >
                         <Form.Group>
                             <Form.Label>Location</Form.Label>
-                            <Form.Control type="password" placeholder="Password" />
+                            <Form.Control placeholder="Location" />
                         </Form.Group>
                     </Col>
                     </Row>

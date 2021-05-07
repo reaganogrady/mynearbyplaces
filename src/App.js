@@ -1,7 +1,7 @@
 import Navbar from 'react-bootstrap/Navbar';
 import './App.css';
 import Home from './components/home';
-import Login from '.components/login';
+import Login from './components/login';
 import SignUp from './components/signup';
 import Review from './components/review';
 import AddPlace from './components/addplace';
@@ -32,6 +32,8 @@ function App() {
 
   let newUser = (user, pass) => {
     // Add user to DB
+    setUser(user);
+
   }
 
 
@@ -49,17 +51,22 @@ function App() {
             </Nav.Link>
           </Nav>
           <Nav className="ml-auto">
-            <Nav.Link> 
-                  {user === '' ?
-                    <Link className='link' to="/login">Login</Link>
-                    :
-                    <Link className='link' onClick={logOut}>Logout</Link>
-                  }
-            </Nav.Link>
-            <Nav.Link> 
-              <Link className="link" to="/signup">Sign Up</Link>
-            </Nav.Link>
-          
+          {user === '' ?
+              <Container>
+                <Nav.Link> 
+                  <Link className='link' to="/login">Login</Link>
+                </Nav.Link> 
+                <Nav.Link> 
+                  <Link className="link" to="/signup">Sign Up</Link>
+                </Nav.Link> 
+              </Container>
+              :
+              <Container>
+                <Nav.Link> 
+                  <Link className='link' onClick={logOut}>Logout</Link>
+                </Nav.Link>
+              </Container>
+          }
           </Nav>
       </Navbar>
       <Switch>

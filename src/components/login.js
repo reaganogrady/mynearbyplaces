@@ -1,5 +1,4 @@
 import 'bootstrap/dist/css/bootstrap.css'
-import './App.css';
 import {Button, Form} from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { Container, Col, Row } from 'react-bootstrap';
