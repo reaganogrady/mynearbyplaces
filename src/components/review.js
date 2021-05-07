@@ -3,29 +3,61 @@ import React from 'react';
 import {Button, Form} from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { Container, Col, Row } from 'react-bootstrap';
+import { useState } from 'react';
+import api from '../communication/api';
 
-function Review() {
+function Review(props) {
+    const [place, setPlace] = useState('');
+    const [city, setCity] = useState('');
+    const [comment, setComment] = useState('');
+    const [rating, setRating] = useState(1);
 
     const history = useHistory();
 
     let onReviewSubmitted = () => {
+        let review = { city, comment, rating };
+
+        api.reviewPlace(review, place)
+            .then(() => {
+                setPlace('');
+                setCity('');
+                setComment('');
+                setRating(1);
+            })
         history.push('/');
     }
+
+    let placeChange = (event) => {
+        setPlace(event.target.value);
+    }
+
+    let cityChange = (event) => {
+        setCity(event.target.value);
+    }
+
+    let commentChange = (event) => {
+        setComment(event.target.value);
+    }
+
+    let ratingChange = (event) => {
+        setRating(event.target.value.length);
+    }
+
     return(
         <Container className="form">
                 <h4> Write a Review </h4>
                 <Form className="review" onSubmit={onReviewSubmitted}>
                     <Row >
-                    <Col xs={5}>
+                    <Col xs={4}>
                         <Form.Group>
                             <Form.Label>Business Name</Form.Label> 
-                            <Form.Control placeholder="Business"/>
+                            <Form.Control placeholder="Business" onChange={placeChange}/>
                         </Form.Group>
                     </Col>
-                    <Col xs={4} >
+                    <Col xs={5} >
                         <Form.Group>
-                            <Form.Label>Location</Form.Label>
-                            <Form.Control placeholder="Location" />
+                            <Form.Label>City Name</Form.Label>
+                            <Form.Control placeholder="City" onChange={cityChange}/>
                         </Form.Group>
                     </Col>
                     </Row>
@@ -33,14 +65,14 @@ function Review() {
                         <Col xs={10}>
                             <Form.Group>
                                 <Form.Label>Comment</Form.Label>
-                                <Form.Control placeholder="Comment"/>
+                                <Form.Control placeholder="Comment" onChange={commentChange}/>
                             </Form.Group>
                         </Col>
                     </Row>
                     <Row>
                         <Col xs={10}>
                             <Form.Label>Rating</Form.Label>
-                            <Form.Control as="select" size="sm" custom>
+                            <Form.Control as="select" size="sm" custom onChange={ratingChange}>
                                 <option>☆</option>
                                 <option>☆☆</option>
                                 <option>☆☆☆</option>

@@ -33,9 +33,7 @@ function App() {
   let newUser = (user, pass) => {
     // Add user to DB
     setUser(user);
-
   }
-
 
   return (
     <HashRouter>
@@ -76,7 +74,7 @@ function App() {
         <Route path ="/home" component= { Home } />
         <Route path ="/login"> <Login onLoggedIn ={onLoggedIn}/></Route>
         <Route path ="/signup"> <SignUp newUser ={newUser}/> </Route>
-        <Route path="/review" component={ Review } />
+        <Route path="/review"> <Review user = {user}/></Route>
         <Route path="/addplace" component= { AddPlace } />
       </Switch>
     </Container>
