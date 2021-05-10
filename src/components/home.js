@@ -6,8 +6,11 @@ import { Container} from 'react-bootstrap';
 import api from '../communication/api';
 import './components.css';
 
+import { useHistory } from 'react-router-dom';
 
 function Home(props){
+    const history = useHistory();
+
     const [place, setPlace] = useState("");
     const [street, setStreet] = useState("");
     const [city, setCity] = useState("");
@@ -23,7 +26,6 @@ function Home(props){
 
         let returnedPlaces = api.searchPlace(place, street, city, state, postalcode);
         setPlaces(returnedPlaces);
-        console.log(returnedPlaces);
     }
 
     let newPlace = (event) => {
@@ -46,6 +48,15 @@ function Home(props){
         setPostalCode(event.target.value);
     }
 
+    let callreview = (place) => {
+        if (props.user === '') {
+            alert('Must be logged in to create a review');
+        } else {
+            props.newPlace(place);
+            history.push('/review');
+        }
+    }
+
     if (places.length === 0) {
         api.getPlaces()
             .then(x => setPlaces(x))
@@ -55,14 +66,14 @@ function Home(props){
     console.log(places);
     let output = []; 
     for (var i = 0; i < places.length; i++) {
-        output.push(
-            <div class="card" style="width: 18rem;">
+        console.log(places[i].reviews[0].rating);
+        output.push( 
+            <div class="card">
             <div class="card-body">
               <h5 class="card-title">{places[i].place}</h5>
-              <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a onClick={} class="card-link">Card link</a>
-              <a onClick={} class="card-link">Another link</a>
+              <h6 class="card-subtitle mb-2 text-muted">Rating: {'☆'.repeat(places[i].reviews[0].rating)}</h6>
+              <p class="card-text">{places[i].reviews[0].comment === null ? "No ratings found." : places[i].reviews[0].comment + ' - ' + places[i].reviews[0].user} </p>
+              <a onClick={callreview.bind(this, places[i])} class="card-link">Write a Review</a>
             </div>
           </div>
         )

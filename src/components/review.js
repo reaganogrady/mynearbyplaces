@@ -15,8 +15,15 @@ function Review(props) {
 
     const history = useHistory();
 
+    if (user === ''){
+        alert('Must be logged in to create a review');
+        history.push('/');
+    }
+
     let onReviewSubmitted = () => {
         setUser(props.user);
+        setPlace(props.place.place);
+        setCity(props.place.city);
         let review = { city, comment, rating, user };
 
         api.reviewPlace(review, place)
@@ -28,14 +35,6 @@ function Review(props) {
                 setUser('');
             })
         history.push('/');
-    }
-
-    let placeChange = (event) => {
-        setPlace(event.target.value);
-    }
-
-    let cityChange = (event) => {
-        setCity(event.target.value);
     }
 
     let commentChange = (event) => {
@@ -50,20 +49,7 @@ function Review(props) {
         <Container className="form">
                 <h4> Write a Review </h4>
                 <Form className="review" onSubmit={onReviewSubmitted}>
-                    <Row >
-                    <Col xs={4}>
-                        <Form.Group>
-                            <Form.Label>Business Name</Form.Label> 
-                            <Form.Control placeholder="Business" onChange={placeChange}/>
-                        </Form.Group>
-                    </Col>
-                    <Col xs={5} >
-                        <Form.Group>
-                            <Form.Label>City Name</Form.Label>
-                            <Form.Control placeholder="City" onChange={cityChange}/>
-                        </Form.Group>
-                    </Col>
-                    </Row>
+        
                     <Row>
                         <Col xs={10}>
                             <Form.Group>

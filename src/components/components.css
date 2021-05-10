@@ -1,6 +1,5 @@
-#placeDiv {
-    width: 150px;
-    height: 150px;
-    padding: 10px;
-    border: solid black 1px;
+.card {
+    display: inline-block;
+    width: 18rem;
+    margin: 10px;
 }
