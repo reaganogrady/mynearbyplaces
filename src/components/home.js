@@ -16,17 +16,20 @@ function Home(props){
     const [city, setCity] = useState("");
     const [state, setState] = useState("");
     const [postalcode, setPostalCode] = useState("");
+    const [searched, setSearch] = useState(false);
 
     const [places, setPlaces] = useState([]);
 
     let searchPlace = () => {
-        if (place.trim().length === 0) {
-            return;
-        }
+        setSearch(true);
+        api.searchPlace(place, street, city, state, postalcode)
+        .then(result => setPlaces(result));
 
-        let returnedPlaces = api.searchPlace(place, street, city, state, postalcode);
-        setPlaces(returnedPlaces);
-    }
+        console.log(places.length);
+        if (places.length === 0) {
+            alert("No matches found, please refresh the page");
+        }
+     }
 
     let newPlace = (event) => {
         setPlace(event.target.value);
@@ -57,16 +60,14 @@ function Home(props){
         }
     }
 
-    if (places.length === 0) {
+    if (!searched) {
         api.getPlaces()
             .then(x => setPlaces(x))
             .catch(e => console.log(e));
     }
 
-    console.log(places);
     let output = []; 
     for (var i = 0; i < places.length; i++) {
-        console.log(places[i].reviews[0].rating);
         output.push( 
             <div class="card">
             <div class="card-body">
@@ -99,7 +100,7 @@ function Home(props){
                 <Form.Control type="text" className="my-1" id="City" placeholder="Postal Code" onChange={newPostalCode}/>
             </Col>
             <Col >
-                <Button variant="dark">Search</Button>
+                <Button variant="dark" type="submit">Search</Button>
             </Col>
             </Form.Row>
         </Form> 
