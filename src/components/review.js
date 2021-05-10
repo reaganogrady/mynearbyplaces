@@ -11,11 +11,13 @@ function Review(props) {
     const [city, setCity] = useState('');
     const [comment, setComment] = useState('');
     const [rating, setRating] = useState(1);
+    const [user, setUser] = useState('');
 
     const history = useHistory();
 
     let onReviewSubmitted = () => {
-        let review = { city, comment, rating };
+        setUser(props.user);
+        let review = { city, comment, rating, user };
 
         api.reviewPlace(review, place)
             .then(() => {
@@ -23,6 +25,7 @@ function Review(props) {
                 setCity('');
                 setComment('');
                 setRating(1);
+                setUser('');
             })
         history.push('/');
     }

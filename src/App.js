@@ -13,8 +13,8 @@ import logo from './images/logo.png';
 
 function App() {
   const [user, setUser] = useState(localStorage.getItem('user') || '');
-  const [place, setPlace] = useState('');
-  const [location, setLoc] = useState('');
+  //const [place, setPlace] = useState('');
+  //const [location, setLoc] = useState('');
 
   let onLoggedIn = (username) => {
     localStorage.setItem('user', username);
@@ -42,7 +42,7 @@ function App() {
           <Navbar.Brand><a href='#home'><img src={logo} alt="logo" height="50px"/></a></Navbar.Brand>
           <Nav>
             <Nav.Link> 
-                <Link className='link' to = '/review'>Write a Review</Link>
+              <Link className='link' to = '/review'>Write a Review</Link>
             </Nav.Link>
             <Nav.Link> 
                 <Link className="link" to="/addplace">Add a Place</Link>
@@ -61,7 +61,7 @@ function App() {
               :
               <Container>
                 <Nav.Link> 
-                  <Link className='link' onClick={logOut}>Logout</Link>
+                  <Link className='link' to="/" onClick={logOut}>Logout</Link>
                 </Nav.Link>
               </Container>
           }
@@ -74,7 +74,7 @@ function App() {
         <Route path ="/home" component= { Home } />
         <Route path ="/login"> <Login onLoggedIn ={onLoggedIn}/></Route>
         <Route path ="/signup"> <SignUp newUser ={newUser}/> </Route>
-        <Route path="/review"> <Review user = {user}/></Route>
+        <Route path="/review"> <Review user = {user} place={place} city = {city}/></Route>
         <Route path="/addplace" component= { AddPlace } />
       </Switch>
     </Container>

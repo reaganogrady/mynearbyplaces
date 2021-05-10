@@ -3,17 +3,20 @@ import {Button, Form} from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { Container, Col, Row } from 'react-bootstrap';
 import { useState } from 'react';
+import api from '../communication/api';
 
 function SignUp(props) {
     const history = useHistory();
-    const [user, setUser] = useState('');
-    const [pass, setPass] = useState('');
+    const [username, setUser] = useState('');
+    const [password, setPass] = useState('');
 
     let onSignupSubmitted = () => {
-        if (user.trim().length === 0 || pass.trim().length === 0) {
+        if (username.trim().length === 0 || password.trim().length === 0) {
             return;
         }
-        props.newUser(user, pass);
+        let info = { username, password };
+        api.signup(info);
+        props.newUser(username, password);
         history.push('/');
     }
 

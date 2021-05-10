@@ -3,6 +3,8 @@ import {Button, Form} from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { Container, Col, Row } from 'react-bootstrap';
 import { useState } from 'react';
+import api from '../communication/api';
+
 
 function Login(props) {
     const history = useHistory();
@@ -13,6 +15,12 @@ function Login(props) {
         if (user.trim().length === 0 || pass.trim().length === 0) {
             return;
         }
+
+        if (!api.login(user, pass)) {
+            alert("The account may not exist OR you have used the wrong username or password.");
+            return;
+        }
+        
         props.onLoggedIn(user);
         history.push('/home');
     }

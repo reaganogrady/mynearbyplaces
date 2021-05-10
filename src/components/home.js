@@ -2,46 +2,98 @@ import 'bootstrap/dist/css/bootstrap.css';
 import React from 'react';
 import {Button, Form, Col} from 'react-bootstrap';
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Container} from 'react-bootstrap';
+import api from '../communication/api';
+import './components.css';
+
 
 function Home(props){
     const [place, setPlace] = useState("");
-    const [location, setLoc] = useState("");
-    const history = useHistory();
+    const [street, setStreet] = useState("");
+    const [city, setCity] = useState("");
+    const [state, setState] = useState("");
+    const [postalcode, setPostalCode] = useState("");
+
+    const [places, setPlaces] = useState([]);
 
     let searchPlace = () => {
-        if (place.trim().length === 0 || location.trim().length === 0) {
+        if (place.trim().length === 0) {
             return;
         }
-        props.search(place, location);
-        history.push('/');
+
+        let returnedPlaces = api.searchPlace(place, street, city, state, postalcode);
+        setPlaces(returnedPlaces);
+        console.log(returnedPlaces);
     }
 
     let newPlace = (event) => {
         setPlace(event.target.value);
     }
 
-    let newLoc = (event) => {
-        setLoc(event.target.value);
+    let newCity = (event) => {
+        setCity(event.target.value);
     }
 
+    let newStreet= (event) => {
+        setStreet(event.target.value);
+    }
+
+    let newState = (event) => {
+        setState(event.target.value);
+    }
+
+    let newPostalCode = (event) => {
+        setPostalCode(event.target.value);
+    }
+
+    if (places.length === 0) {
+        api.getPlaces()
+            .then(x => setPlaces(x))
+            .catch(e => console.log(e));
+    }
+
+    console.log(places);
+    let output = []; 
+    for (var i = 0; i < places.length; i++) {
+        output.push(
+            <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">{places[i].place}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <a onClick={} class="card-link">Card link</a>
+              <a onClick={} class="card-link">Another link</a>
+            </div>
+          </div>
+        )
+    }
 
     return(
+        <Container>
         <Form onSubmit = {searchPlace}>
             <Form.Row className="align-items-center">
-            <Col xs={7}>
-            <Form.Control type="text" className="my-1" id="Search" placeholder="What are you looking for?" onChange = {newPlace}/>
-        </Col>
-        <Col>
-            <Form.Control type="text" className="my-1" id="Location" placeholder="Near" onChange={newLoc}/>
-        </Col>
-        <Col>
-            <Button variant="dark">Search</Button>
-        </Col>
-        </Form.Row>
-        </Form>
-
-        
+            <Col xs={3}>
+                <Form.Control type="text" className="my-1" id="Search" placeholder="What are you looking for?" onChange = {newPlace}/>
+            </Col>
+            <Col xs={2}>
+                <Form.Control type="text" className="my-1" id="Street" placeholder="Street" onChange={newStreet}/>
+            </Col>
+            <Col xs={2}>
+                <Form.Control type="text" className="my-1" id="City" placeholder="City" onChange={newCity}/>
+            </Col>
+            <Col xs={2}>
+                <Form.Control type="text" className="my-1" id="State" placeholder="State" onChange={newState}/>
+            </Col>
+            <Col xs={2}>
+                <Form.Control type="text" className="my-1" id="City" placeholder="Postal Code" onChange={newPostalCode}/>
+            </Col>
+            <Col >
+                <Button variant="dark">Search</Button>
+            </Col>
+            </Form.Row>
+        </Form> 
+            {output}
+        </Container>
     
     );
     
